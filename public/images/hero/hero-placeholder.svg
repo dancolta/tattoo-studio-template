@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect x="1" y="1" width="1918" height="1078" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="960" y="520" text-anchor="middle" font-family="system-ui,sans-serif" font-size="32" fill="#a1a1aa">Hero Image</text>
+  <text x="960" y="570" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#71717a">1920 x 1080</text>
+</svg>
