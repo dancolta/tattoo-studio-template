@@ -11,10 +11,10 @@ export default function PortfolioGrid() {
   }));
 
   return (
-    <section id="portfolio" className="py-20 md:py-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
+    <section id="portfolio" className="py-12 md:py-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 mb-8 md:mb-12 text-center">
         <ScrollReveal>
-          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
+          <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
             {portfolio.heading}
           </h2>
           <p className="text-text-muted mt-3 max-w-md mx-auto">

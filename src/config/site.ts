@@ -261,9 +261,9 @@ export const siteConfig: SiteConfig = {
 
   // ── Socials ───────────────────────────────────────
   socials: [
-    { platform: "instagram", url: "https://instagram.com/inkandiron" },
-    { platform: "tiktok", url: "https://tiktok.com/@inkandiron" },
-    { platform: "facebook", url: "https://facebook.com/inkandiron" },
+    { platform: "instagram", url: "#" },
+    { platform: "tiktok", url: "#" },
+    { platform: "facebook", url: "#" },
   ],
 
   // ── Stats ─────────────────────────────────────────

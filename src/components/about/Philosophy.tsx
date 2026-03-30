@@ -37,14 +37,14 @@ export default function Philosophy() {
           return (
             <ScrollReveal key={i} delay={i * 100}>
               <SpotlightCard className="backdrop-blur-xl">
-                <div className="relative z-10 p-8 text-center">
-                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-6 h-6 text-accent" />
+                <div className="relative z-10 p-5 md:p-8 text-center">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <Icon className="w-5 h-5 md:w-6 md:h-6 text-accent" />
                   </div>
-                  <h3 className="font-heading text-lg font-bold mb-2">
+                  <h3 className="font-heading text-base md:text-lg font-bold mb-1.5 md:mb-2">
                     {value.title}
                   </h3>
-                  <p className="text-text-muted text-sm leading-relaxed">
+                  <p className="text-text-muted text-xs md:text-sm leading-relaxed">
                     {value.description}
                   </p>
                 </div>

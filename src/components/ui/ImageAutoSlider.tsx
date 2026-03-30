@@ -100,7 +100,7 @@ export function ImageAutoSlider({
       >
         <div
           ref={containerRef}
-          className="flex gap-6 overflow-x-scroll scrollbar-hide cursor-grab active:cursor-grabbing select-none"
+          className="flex gap-3 md:gap-6 overflow-x-scroll scrollbar-hide cursor-grab active:cursor-grabbing select-none"
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
@@ -114,7 +114,7 @@ export function ImageAutoSlider({
               tabIndex={0}
               aria-label={`View ${image.alt}`}
               className={cn(
-                "relative flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden group cursor-pointer",
+                "relative flex-shrink-0 w-36 h-36 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden group cursor-pointer",
                 imageClassName
               )}
             >

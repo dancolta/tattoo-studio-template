@@ -14,11 +14,11 @@ export default function StatsBar() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {stats.map((stat, i) => (
               <SpotlightCard key={i} className="backdrop-blur-xl">
-                <div className="relative z-10 py-8 md:py-10 text-center">
-                  <p className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-accent">
+                <div className="relative z-10 py-5 md:py-10 text-center">
+                  <p className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold text-accent">
                     {stat.value}
                   </p>
-                  <p className="text-text-muted text-sm mt-2 uppercase tracking-widest">
+                  <p className="text-text-muted text-[10px] md:text-sm mt-1 md:mt-2 uppercase tracking-widest">
                     {stat.label}
                   </p>
                 </div>

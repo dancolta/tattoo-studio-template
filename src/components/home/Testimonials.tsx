@@ -63,10 +63,10 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="py-20 md:py-32 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
+    <section id="testimonials" className="py-12 md:py-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 mb-8 md:mb-12 text-center">
         <ScrollReveal>
-          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
+          <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
             {testimonials.heading}
           </h2>
         </ScrollReveal>
@@ -76,7 +76,7 @@ export default function Testimonials() {
         <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
           <div
             ref={containerRef}
-            className="flex gap-6 overflow-x-scroll scrollbar-hide cursor-grab active:cursor-grabbing select-none"
+            className="flex gap-3 md:gap-6 overflow-x-scroll scrollbar-hide cursor-grab active:cursor-grabbing select-none"
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
@@ -85,7 +85,7 @@ export default function Testimonials() {
             {duplicated.map((t, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 w-[460px] md:w-[550px] lg:w-[600px]"
+                className="flex-shrink-0 w-[280px] md:w-[550px] lg:w-[600px]"
               >
                 <TestimonialCard testimonial={t} />
               </div>

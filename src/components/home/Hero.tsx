@@ -61,7 +61,7 @@ export default function Hero() {
       {/* Centered content */}
       <div className="relative z-10 text-center px-6">
         <motion.h1
-          className="font-bold text-7xl md:text-[8rem] lg:text-[10rem] leading-[0.85] tracking-tight text-[#c8ccd0]"
+          className="font-bold text-5xl md:text-[8rem] lg:text-[10rem] leading-[0.85] tracking-tight text-[#c8ccd0]"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
@@ -71,7 +71,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          className="text-text-muted text-xl md:text-2xl max-w-xl mx-auto mt-8"
+          className="text-text-muted text-base md:text-2xl max-w-xl mx-auto mt-5 md:mt-8"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
@@ -81,7 +81,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          className="flex flex-wrap justify-center gap-4 mt-10"
+          className="flex flex-wrap justify-center gap-3 md:gap-4 mt-7 md:mt-10"
           variants={fadeUp}
           initial="hidden"
           animate="visible"

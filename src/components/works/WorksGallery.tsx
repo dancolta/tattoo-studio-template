@@ -20,12 +20,12 @@ export default function WorksGallery() {
   return (
     <>
       <ScrollReveal>
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-12">
           {portfolio.categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+              className={`px-3 py-1.5 md:px-5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 cursor-pointer ${
                 activeCategory === cat
                   ? "bg-white/20 text-white border border-white/20"
                   : "text-text-muted border border-white/[0.06] hover:text-white hover:border-white/20"
@@ -37,7 +37,7 @@ export default function WorksGallery() {
         </div>
       </ScrollReveal>
 
-      <div className="columns-2 md:columns-3 gap-4 space-y-4">
+      <div className="columns-2 md:columns-3 gap-3 md:gap-4 space-y-3 md:space-y-4">
         {filtered.map((item, i) => (
           <ScrollReveal key={`${activeCategory}-${i}`} delay={i * 50}>
             <div

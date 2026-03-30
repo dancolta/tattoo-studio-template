@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -23,21 +24,24 @@ export default function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled
-            ? "bg-surface/50 backdrop-blur-xl shadow-lg shadow-black/20"
+            ? "bg-surface/30 backdrop-blur-xl shadow-lg shadow-black/20"
             : "bg-transparent"
         )}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 h-24 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 h-16 md:h-24 flex items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
-            className="font-heading text-2xl font-bold text-text hover:text-accent transition-colors"
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
-            {siteConfig.nav.logo}
+            <Image src="/images/logo.svg" alt={siteConfig.name} width={36} height={36} className="md:w-10 md:h-10" />
+            <span className="font-heading text-lg md:text-2xl font-bold text-text">
+              {siteConfig.nav.logo}
+            </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-12">
+          {/* Desktop Nav — centered */}
+          <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
             {siteConfig.nav.links.map((link) => (
               <Link
                 key={link.href}
@@ -52,6 +56,10 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+          </div>
+
+          {/* CTA — right */}
+          <div className="hidden md:block">
             <Button href={siteConfig.nav.ctaHref} variant="secondary" size="md">
               {siteConfig.nav.ctaText}
             </Button>
@@ -79,8 +87,18 @@ export default function Navbar() {
           />
 
           {/* Drawer */}
-          <div className="absolute right-0 top-0 bottom-0 w-72 bg-surface/90 backdrop-blur-xl border-l border-accent/10 p-6 flex flex-col animate-slide-in">
-            <div className="flex justify-end mb-8">
+          <div className="absolute right-0 top-0 bottom-0 w-72 bg-surface/30 backdrop-blur-2xl border-l border-white/[0.08] p-6 flex flex-col animate-slide-in">
+            <div className="flex items-center justify-between mb-8">
+              <Link
+                href="/"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              >
+                <Image src="/images/logo.svg" alt={siteConfig.name} width={28} height={28} />
+                <span className="font-heading text-lg font-bold text-text">
+                  {siteConfig.nav.logo}
+                </span>
+              </Link>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
@@ -91,14 +109,14 @@ export default function Navbar() {
               </button>
             </div>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               {siteConfig.nav.links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "text-xl font-medium tracking-wide transition-colors",
+                    "text-lg font-medium tracking-wide transition-colors",
                     pathname === link.href
                       ? "text-accent"
                       : "text-text-muted hover:text-text"
