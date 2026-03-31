@@ -23,7 +23,7 @@ export default function Philosophy({ config }: { config?: SiteConfig }) {
       <ScrollReveal>
         <div className="text-center mb-16">
           <div className="w-12 h-px bg-accent/30 mx-auto mb-8" />
-          <blockquote className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold italic text-accent max-w-3xl mx-auto leading-snug whitespace-pre-line">
+          <blockquote className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold italic text-accent max-w-4xl mx-auto leading-snug whitespace-pre-line">
             &ldquo;{philosophy.quote}&rdquo;
           </blockquote>
           <p className="text-text-muted mt-6 text-sm uppercase tracking-widest">

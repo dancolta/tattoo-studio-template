@@ -68,7 +68,9 @@ export default function Hero({ config }: { config?: SiteConfig }) {
           animate="visible"
           custom={0}
         >
-          {hero.heading}
+          {hero.heading.split("\n").map((line, i) => (
+            <span key={i} className="block">{line}</span>
+          ))}
         </motion.h1>
 
         <motion.p

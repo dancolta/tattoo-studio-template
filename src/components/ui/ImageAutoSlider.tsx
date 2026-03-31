@@ -37,14 +37,24 @@ export function ImageAutoSlider({
   const [lightbox, setLightbox] = useState<string | null>(null);
   const closeLightbox = useCallback(() => setLightbox(null), []);
 
+  // Pause rAF when off-screen
+  const isVisible = useRef(true);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
+    // Visibility observer — stop animating when off-screen
+    const visObs = new IntersectionObserver(
+      ([entry]) => { isVisible.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    visObs.observe(container);
+
     const pxPerFrame = (reverse ? -1 : 1) * (60 / speed) * 0.5;
 
     const tick = () => {
-      if (!isPaused.current && container) {
+      if (!isPaused.current && isVisible.current && container) {
         container.scrollLeft += pxPerFrame;
         const half = container.scrollWidth / 2;
         if (!reverse && container.scrollLeft >= half) {
@@ -58,7 +68,10 @@ export function ImageAutoSlider({
 
     if (reverse) container.scrollLeft = container.scrollWidth / 2;
     rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      visObs.disconnect();
+    };
   }, [speed, reverse]);
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
@@ -114,7 +127,7 @@ export function ImageAutoSlider({
               tabIndex={0}
               aria-label={`View ${image.alt}`}
               className={cn(
-                "relative flex-shrink-0 w-36 h-36 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden group cursor-pointer",
+                "relative flex-shrink-0 w-48 h-60 md:w-72 md:h-[22rem] lg:w-80 lg:h-[26rem] rounded-xl overflow-hidden group cursor-pointer",
                 imageClassName
               )}
             >

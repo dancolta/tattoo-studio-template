@@ -18,25 +18,25 @@ export function useScrollDirection(threshold = 10): ScrollState {
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let ticking = false;
+    let prevIsAtTop = window.scrollY < 80;
+    let prevDirection: "up" | "down" = "up";
 
     function update() {
       const scrollY = window.scrollY;
+      const isAtTop = scrollY < 80;
       const diff = scrollY - lastScrollY;
+      const direction: "up" | "down" = Math.abs(diff) >= threshold
+        ? (diff > 0 ? "down" : "up")
+        : prevDirection;
 
-      if (Math.abs(diff) >= threshold) {
-        setState({
-          direction: diff > 0 ? "down" : "up",
-          scrollY,
-          isAtTop: scrollY < 10,
-        });
-        lastScrollY = scrollY;
-      } else {
-        setState((prev) => ({
-          ...prev,
-          scrollY,
-          isAtTop: scrollY < 10,
-        }));
+      // Only trigger re-render when something actually changed
+      if (isAtTop !== prevIsAtTop || direction !== prevDirection) {
+        prevIsAtTop = isAtTop;
+        prevDirection = direction;
+        if (Math.abs(diff) >= threshold) lastScrollY = scrollY;
+        setState({ direction, scrollY, isAtTop });
       }
+
       ticking = false;
     }
 

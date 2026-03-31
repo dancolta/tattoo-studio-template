@@ -30,21 +30,27 @@ export default function Navbar({
   return (
     <>
       <nav
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          scrolled
-            ? "bg-surface/30 backdrop-blur-xl shadow-lg shadow-black/20"
-            : "bg-transparent"
-        )}
+        className="fixed top-0 left-0 right-0 z-50"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 h-16 md:h-24 flex items-center justify-between">
+        {/* Glass layer — always mounted, only opacity animates (no backdrop-filter toggle = no jank) */}
+        <div
+          className={cn(
+            "absolute inset-0 bg-surface/30 backdrop-blur-xl shadow-lg shadow-black/20 transition-opacity duration-500 ease-out",
+            scrolled ? "opacity-100" : "opacity-0 pointer-events-none"
+          )}
+        />
+        <div className="relative max-w-7xl mx-auto px-6 md:px-8 h-16 md:h-24 flex items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
             <Image src="/images/logo.svg" alt={cfg.name} width={36} height={36} className="md:w-10 md:h-10" />
-            <span className="font-heading text-lg md:text-2xl font-bold text-text">
+            {/* Hide studio name on desktop — only show in mobile drawer */}
+            <span className={cn(
+              "font-heading text-lg md:text-2xl font-bold text-text",
+              isStudio && "md:hidden"
+            )}>
               {cfg.nav.logo}
             </span>
           </Link>

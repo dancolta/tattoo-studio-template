@@ -51,8 +51,14 @@ export function EtheralShadow({
   const hueRotateMotionValue = useMotionValue(180);
   const hueRotateAnimation = useRef<AnimationPlaybackControls | null>(null);
 
-  const displacementScale = animation ? mapRange(animation.scale, 1, 100, 20, 100) : 0;
-  const animationDuration = animation ? mapRange(animation.speed, 1, 100, 1000, 50) : 1;
+  const displacementScale = React.useMemo(
+    () => animation ? mapRange(animation.scale, 1, 100, 20, 100) : 0,
+    [animation?.scale]
+  );
+  const animationDuration = React.useMemo(
+    () => animation ? mapRange(animation.speed, 1, 100, 1000, 50) : 1,
+    [animation?.speed]
+  );
 
   useEffect(() => {
     if (feColorMatrixRef.current && animationEnabled) {
@@ -98,6 +104,7 @@ export function EtheralShadow({
           position: "absolute",
           inset: -displacementScale,
           filter: animationEnabled ? `url(#${id}) blur(4px)` : "none",
+          willChange: animationEnabled ? "filter" : "auto",
         }}
       >
         {animationEnabled && (

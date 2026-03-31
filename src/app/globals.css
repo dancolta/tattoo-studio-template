@@ -44,11 +44,13 @@ h4 {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 600ms ease-out, transform 600ms ease-out;
+  will-change: opacity, transform;
 }
 
 .scroll-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 /* ── Hero Animations ───────────────────────────────── */
@@ -197,6 +199,7 @@ select option {
   z-index: 0;
   border-radius: 12px;
   overflow: visible;
+  contain: layout style paint;
 }
 
 .glow-card::before,
@@ -262,6 +265,7 @@ select option {
   background: hsl(0 0% 60% / 0.06);
   border: 1px solid hsl(0 0% 100% / 0.06);
   overflow: hidden;
+  contain: paint;
 }
 
 .spotlight-card::before {

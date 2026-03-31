@@ -17,15 +17,23 @@ export default function Testimonials({ config }: { config?: SiteConfig }) {
   const dragStartX = useRef(0);
   const scrollStartX = useRef(0);
 
-  // Auto-scroll with rAF
+  // Auto-scroll with rAF — pauses when off-screen
+  const isVisible = useRef(true);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
+    const visObs = new IntersectionObserver(
+      ([entry]) => { isVisible.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    visObs.observe(container);
+
     const pxPerFrame = 0.4;
 
     const tick = () => {
-      if (!isPaused.current && container) {
+      if (!isPaused.current && isVisible.current && container) {
         container.scrollLeft += pxPerFrame;
 
         const half = container.scrollWidth / 2;
@@ -37,7 +45,10 @@ export default function Testimonials({ config }: { config?: SiteConfig }) {
     };
 
     rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      visObs.disconnect();
+    };
   }, []);
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
