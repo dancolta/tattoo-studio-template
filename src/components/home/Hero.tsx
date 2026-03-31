@@ -16,7 +16,13 @@ const fadeUp: Variants = {
   }),
 };
 
-export default function Hero({ config }: { config?: SiteConfig }) {
+export default function Hero({
+  config,
+  etherealColor = "rgba(128, 128, 128, 1)",
+}: {
+  config?: SiteConfig;
+  etherealColor?: string;
+}) {
   const { hero } = config || defaultConfig;
 
   return (
@@ -30,7 +36,7 @@ export default function Hero({ config }: { config?: SiteConfig }) {
         }}
       >
         <EtheralShadow
-          color="rgba(128, 128, 128, 1)"
+          color={etherealColor}
           animation={{ scale: 100, speed: 90 }}
           noise={{ opacity: 1, scale: 1.2 }}
           sizing="fill"
@@ -54,7 +60,7 @@ export default function Hero({ config }: { config?: SiteConfig }) {
           alt="Tattoo studio atmosphere"
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
           className="object-cover object-center opacity-25 mix-blend-luminosity"
         />
       </div>
@@ -62,7 +68,7 @@ export default function Hero({ config }: { config?: SiteConfig }) {
       {/* Centered content */}
       <div className="relative z-10 text-center px-6">
         <motion.h1
-          className="font-bold text-5xl md:text-[8rem] lg:text-[10rem] leading-[0.85] tracking-tight text-[#c8ccd0]"
+          className="font-bold text-5xl md:text-[8rem] lg:text-[10rem] leading-[0.85] tracking-tight text-accent"
           variants={fadeUp}
           initial="hidden"
           animate="visible"

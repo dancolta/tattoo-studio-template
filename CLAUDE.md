@@ -4,11 +4,33 @@
 
 Next.js template for tattoo studio outreach. Each studio gets a personalized site at `/[slug]` powered by a JSON config file.
 
+## URL Structure & Flow
+
+```
+/                    → Lock screen ("Private Portfolio") — public-facing, hides the template system
+/ns-8k2m             → Bold/classic template preview (Dan only — internal)
+/ns-8k2m-v           → Vibrant template preview (Dan only — internal)
+/[slug]              → Client sites — clean URLs, no prefix
+```
+
+**Templates** (`bold`, `vibrant`) are internal previews at hardcoded routes. Clients never see these.
+
+**Client sites** live at `/<slug>` (e.g. `/valentin-c-tattoos`). The URL is always clean — the template used is determined by `studio.json._outreach.template`, invisible to the client.
+
+### Outreach pipeline (per lead)
+
+1. Scraper (`instagram-scraper`) extracts studio data from IG → outputs `studio.json` + images
+2. `studio.json._outreach.template` is set to `bold` or `vibrant` based on studio style
+3. Data goes into `public/studios/[slug]/`
+4. Deploy via `vercel deploy --prod` (CLI, not git push — studio data is gitignored)
+5. Client gets a clean link: `tattoo-studio.nodesparks.com/[slug]`
+6. Screenshot of the live site is sent via IG DM as outreach
+
 ## Architecture
 
-- **Route groups**: `(main)` = root lock screen, `(studio)/[slug]` = per-studio pages, `(preview)/ns-8k2m` = default template preview (private)
-- **Studio data**: `public/studios/[slug]/studio.json` + images. Gitignored — deployed via `vercel deploy --prod` (CLI), not git push.
-- **Templates**: `bold` (default), `minimal`, `artsy` — selected via `_outreach.template` in studio.json. Only bold exists currently.
+- **Route groups**: `(main)` = root lock screen, `(studio)/[slug]` = per-studio pages, `(preview)/ns-8k2m` = bold preview, `(preview-vibrant)/ns-8k2m-v` = vibrant preview
+- **Studio data**: `public/studios/[slug]/studio.json` + images. Gitignored — deployed via CLI.
+- **Templates**: `bold` (classic/default), `vibrant` — selected via `_outreach.template` in studio.json. `minimal` and `artsy` are placeholders.
 - **All components** accept optional `config?: SiteConfig` prop, falling back to `defaultConfig` from `src/config/site.ts`.
 
 ## Key Files
@@ -30,4 +52,5 @@ Next.js template for tattoo studio outreach. Each studio gets a personalized sit
 - **NEVER replace the EtheralShadow SVG animation** (feTurbulence + feDisplacementMap) with CSS. It's a critical visual element.
 - **NEVER change visual styles** without explicit approval — optimize performance only via code techniques (rAF, containment, will-change, etc.)
 - Root `/` is a lock screen ("Private Portfolio") — leads must not see the template system
-- Preview URL `/ns-8k2m` is for Dan's eyes only — do not share or reference in any public-facing content
+- Preview URLs `/ns-8k2m` and `/ns-8k2m-v` are for Dan's eyes only — do not share or reference in any public-facing content
+- Client URLs are always clean: `/<slug>` — no numbered prefixes, no template indicators

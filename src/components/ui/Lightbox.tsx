@@ -23,7 +23,7 @@ export function Lightbox({ src, onClose }: LightboxProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-12 animate-page-in"
+      className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 md:p-12 animate-page-in"
       onClick={onClose}
       role="dialog"
       aria-modal="true"

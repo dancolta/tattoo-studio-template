@@ -10,6 +10,48 @@
   --color-accent: #C9CCD0;
   --color-accent-hover: #D8DADD;
   --color-border: rgba(201, 204, 208, 0.10);
+
+  /* Glow card gradient stops (themeable) */
+  --glow-dark: #3a3a3e;
+  --glow-mid: #5a5a5e;
+  --glow-light: #C9CCD0;
+  --glow-bright: #D8DADD;
+}
+
+/* ── Vibrant Theme ────────────────────────────────── */
+.theme-vibrant {
+  --color-accent: #F43F5E;
+  --color-accent-hover: #FB7185;
+  --color-text: rgba(232, 232, 232, 0.85);
+  --color-border: rgba(244, 63, 94, 0.12);
+  --glow-dark: #4a1020;
+  --glow-mid: #7a1830;
+  --glow-light: #F43F5E;
+  --glow-bright: #FB7185;
+  --spotlight-color: hsl(347 90% 60% / 0.2);
+}
+
+.theme-vibrant h1,
+.theme-vibrant h2,
+.theme-vibrant h3,
+.theme-vibrant h4 {
+  color: #C73550;
+}
+
+/* Button glass rims — rose tint */
+.theme-vibrant .glass-btn-rim-primary {
+  box-shadow: inset 2px 2px 1px 0 rgba(244, 63, 94, 0.5),
+    inset -1px -1px 1px 1px rgba(244, 63, 94, 0.4);
+}
+
+.theme-vibrant .glass-btn-rim-secondary {
+  box-shadow: inset 1px 1px 1px 0 rgba(244, 63, 94, 0.25),
+    inset -1px -1px 1px 1px rgba(244, 63, 94, 0.2);
+}
+
+/* Navbar active link + hover */
+.theme-vibrant nav a:hover {
+  color: var(--color-accent) !important;
 }
 
 @theme inline {
@@ -39,19 +81,7 @@ h4 {
   font-family: var(--font-heading), system-ui, sans-serif;
 }
 
-/* ── Scroll Reveal ─────────────────────────────────── */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 600ms ease-out, transform 600ms ease-out;
-  will-change: opacity, transform;
-}
-
-.scroll-reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-  will-change: auto;
-}
+/* ── Scroll Reveal (disabled for performance — content renders immediately) ── */
 
 /* ── Hero Animations ───────────────────────────────── */
 @keyframes fadeUp {
@@ -118,6 +148,7 @@ select option {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
 
 /* ── Page Transition ───────────────────────────────── */
 @keyframes fadeIn {
@@ -210,15 +241,15 @@ select option {
   border-radius: inherit;
   background: conic-gradient(
     from var(--glow-angle),
-    #3a3a3e,
-    #C9CCD0,
-    #D8DADD,
-    #C9CCD0,
-    #3a3a3e,
-    #5a5a5e,
-    #D8DADD,
-    #5a5a5e,
-    #3a3a3e
+    var(--glow-dark),
+    var(--glow-light),
+    var(--glow-bright),
+    var(--glow-light),
+    var(--glow-dark),
+    var(--glow-mid),
+    var(--glow-bright),
+    var(--glow-mid),
+    var(--glow-dark)
   );
   z-index: -1;
   animation: glow-rotate 6s linear infinite;
@@ -276,7 +307,7 @@ select option {
   border-radius: inherit;
   background: radial-gradient(
     350px 350px at var(--x) var(--y),
-    hsl(210 10% 80% / 0.2),
+    var(--spotlight-color, hsl(210 10% 80% / 0.2)),
     transparent 100%
   );
   opacity: var(--opacity);

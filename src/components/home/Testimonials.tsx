@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useCallback, useEffect, memo } from "react";
 import { siteConfig as defaultConfig } from "@/config/site";
 import type { SiteConfig } from "@/types";
 import TestimonialCard from "@/components/home/TestimonialCard";
@@ -17,23 +17,15 @@ export default function Testimonials({ config }: { config?: SiteConfig }) {
   const dragStartX = useRef(0);
   const scrollStartX = useRef(0);
 
-  // Auto-scroll with rAF — pauses when off-screen
-  const isVisible = useRef(true);
-
+  // Auto-scroll with rAF — fully stops loop when off-screen
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const visObs = new IntersectionObserver(
-      ([entry]) => { isVisible.current = entry.isIntersecting; },
-      { threshold: 0 }
-    );
-    visObs.observe(container);
-
     const pxPerFrame = 0.4;
 
     const tick = () => {
-      if (!isPaused.current && isVisible.current && container) {
+      if (!isPaused.current && container) {
         container.scrollLeft += pxPerFrame;
 
         const half = container.scrollWidth / 2;
@@ -44,9 +36,33 @@ export default function Testimonials({ config }: { config?: SiteConfig }) {
       rafRef.current = requestAnimationFrame(tick);
     };
 
-    rafRef.current = requestAnimationFrame(tick);
+    const startLoop = () => {
+      if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+
+    const stopLoop = () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = 0;
+      }
+    };
+
+    const visObs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0, rootMargin: "100px" }
+    );
+    visObs.observe(container);
+
     return () => {
-      cancelAnimationFrame(rafRef.current);
+      stopLoop();
       visObs.disconnect();
     };
   }, []);

@@ -7,7 +7,7 @@ export default function Footer({ config }: { config?: SiteConfig }) {
 
   return (
     <footer className="relative">
-      <div className="absolute inset-0 bg-surface/50 backdrop-blur-xl" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 40%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 40%)' }} />
+      <div className="absolute inset-0 bg-surface/80" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 40%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 40%)' }} />
       <div className="relative max-w-7xl mx-auto px-6 py-12">
         <div className="flex flex-col items-center gap-6 text-center">
           {/* Social Icons */}

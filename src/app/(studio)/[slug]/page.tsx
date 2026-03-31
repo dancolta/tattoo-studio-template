@@ -11,6 +11,7 @@ import CtaBanner from "@/components/home/CtaBanner";
 
 import MinimalTemplate from "@/components/templates/MinimalTemplate";
 import ArtsyTemplate from "@/components/templates/ArtsyTemplate";
+import VibrantTemplate from "@/components/templates/VibrantTemplate";
 
 function BoldTemplate({ config }: { config: SiteConfig }) {
   return (
@@ -41,6 +42,8 @@ export default async function StudioPage({ params }: Props) {
   const template = (config as any)._outreach?.template || "bold";
 
   switch (template) {
+    case "vibrant":
+      return <VibrantTemplate config={config} />;
     case "minimal":
       return <MinimalTemplate config={config} />;
     case "artsy":

@@ -14,7 +14,7 @@ export default function StatsBar({ config }: { config?: SiteConfig }) {
         <ScrollReveal>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {stats.map((stat, i) => (
-              <SpotlightCard key={i} className="backdrop-blur-xl">
+              <SpotlightCard key={i}>
                 <div className="relative z-10 py-5 md:py-10 text-center">
                   <p className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold text-accent">
                     {stat.value}

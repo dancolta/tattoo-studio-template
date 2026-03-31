@@ -7,7 +7,7 @@ interface TestimonialCardProps {
 
 export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-xl p-5 md:p-10 min-h-[180px] md:min-h-[280px] h-full flex flex-col">
+    <div className="bg-surface-elevated/80 border border-white/[0.06] rounded-xl p-5 md:p-10 min-h-[180px] md:min-h-[280px] h-full flex flex-col">
       {/* Stars */}
       <div className="flex gap-1 mb-4" aria-label={`${testimonial.rating} out of 5 stars`}>
         {Array.from({ length: testimonial.rating }).map((_, i) => (

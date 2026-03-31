@@ -14,16 +14,21 @@ import Button from "@/components/ui/Button";
 export default function Navbar({
   config,
   studioSlug,
+  basePath = "",
+  heroPage = false,
 }: {
   config?: SiteConfig;
   studioSlug?: string;
+  basePath?: string;
+  heroPage?: boolean;
 }) {
   const cfg = config || defaultConfig;
   const [mobileOpen, setMobileOpen] = useState(false);
   const { isAtTop } = useScrollDirection();
   const pathname = usePathname();
+  const prefix = studioSlug ? `/${studioSlug}` : basePath;
   const isStudio = !!studioSlug;
-  const isHome = isStudio ? pathname === `/${studioSlug}` : pathname === "/";
+  const isHome = heroPage || (isStudio ? pathname === `/${studioSlug}` : pathname === "/");
 
   const scrolled = !(isHome && isAtTop);
 
@@ -42,7 +47,7 @@ export default function Navbar({
         <div className="relative max-w-7xl mx-auto px-6 md:px-8 h-16 md:h-24 flex items-center justify-between">
           {/* Logo */}
           <Link
-            href="/"
+            href={prefix || "/"}
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
             <Image src="/images/logo.svg" alt={cfg.name} width={36} height={36} className="md:w-10 md:h-10" />
@@ -57,20 +62,23 @@ export default function Navbar({
 
           {/* Desktop Nav — centered */}
           <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-            {cfg.nav.links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "text-base font-medium tracking-wide uppercase transition-colors duration-200",
-                  pathname === link.href
-                    ? "text-accent"
-                    : "text-text-muted hover:text-text"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {cfg.nav.links.map((link) => {
+              const href = link.href === "/" ? (prefix || "/") : `${prefix}${link.href}`;
+              return (
+                <Link
+                  key={link.href}
+                  href={href}
+                  className={cn(
+                    "text-base font-medium tracking-wide uppercase transition-colors duration-200",
+                    pathname === href
+                      ? "text-accent"
+                      : "text-text-muted hover:text-text"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
           {/* CTA — right */}
@@ -125,21 +133,24 @@ export default function Navbar({
             </div>
 
             <div className="flex flex-col gap-5">
-              {cfg.nav.links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "text-lg font-medium tracking-wide transition-colors",
-                    pathname === link.href
-                      ? "text-accent"
-                      : "text-text-muted hover:text-text"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {cfg.nav.links.map((link) => {
+                const href = link.href === "/" ? (prefix || "/") : `${prefix}${link.href}`;
+                return (
+                  <Link
+                    key={link.href}
+                    href={href}
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      "text-lg font-medium tracking-wide transition-colors",
+                      pathname === href
+                        ? "text-accent"
+                        : "text-text-muted hover:text-text"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="mt-auto">

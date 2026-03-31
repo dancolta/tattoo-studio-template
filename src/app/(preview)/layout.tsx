@@ -16,7 +16,7 @@ export default function PreviewLayout({
           __html: JSON.stringify(generateLocalBusinessJsonLd(siteConfig)),
         }}
       />
-      <Navbar />
+      <Navbar heroPage basePath="/ns-8k2m" />
       <main className="flex-1 animate-page-in">{children}</main>
       <Footer />
     </>

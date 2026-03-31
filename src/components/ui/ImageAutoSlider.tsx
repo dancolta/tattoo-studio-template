@@ -37,24 +37,15 @@ export function ImageAutoSlider({
   const [lightbox, setLightbox] = useState<string | null>(null);
   const closeLightbox = useCallback(() => setLightbox(null), []);
 
-  // Pause rAF when off-screen
-  const isVisible = useRef(true);
-
+  // Fully stop rAF when off-screen, restart on intersection
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Visibility observer — stop animating when off-screen
-    const visObs = new IntersectionObserver(
-      ([entry]) => { isVisible.current = entry.isIntersecting; },
-      { threshold: 0 }
-    );
-    visObs.observe(container);
-
     const pxPerFrame = (reverse ? -1 : 1) * (60 / speed) * 0.5;
 
     const tick = () => {
-      if (!isPaused.current && isVisible.current && container) {
+      if (!isPaused.current && container) {
         container.scrollLeft += pxPerFrame;
         const half = container.scrollWidth / 2;
         if (!reverse && container.scrollLeft >= half) {
@@ -66,10 +57,35 @@ export function ImageAutoSlider({
       rafRef.current = requestAnimationFrame(tick);
     };
 
+    const startLoop = () => {
+      if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+
+    const stopLoop = () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = 0;
+      }
+    };
+
+    const visObs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0, rootMargin: "100px" }
+    );
+    visObs.observe(container);
+
     if (reverse) container.scrollLeft = container.scrollWidth / 2;
-    rafRef.current = requestAnimationFrame(tick);
+
     return () => {
-      cancelAnimationFrame(rafRef.current);
+      stopLoop();
       visObs.disconnect();
     };
   }, [speed, reverse]);

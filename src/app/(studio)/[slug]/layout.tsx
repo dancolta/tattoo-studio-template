@@ -36,8 +36,12 @@ export default async function StudioLayout({ children, params }: Props) {
 
   if (!config) notFound();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const template = (config as any)._outreach?.template || "bold";
+  const themeClass = template === "vibrant" ? "theme-vibrant" : "";
+
   return (
-    <>
+    <div className={themeClass}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -47,6 +51,6 @@ export default async function StudioLayout({ children, params }: Props) {
       <Navbar config={config} studioSlug={slug} />
       <main className="flex-1 animate-page-in">{children}</main>
       <Footer config={config} />
-    </>
+    </div>
   );
 }
