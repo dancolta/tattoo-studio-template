@@ -50,7 +50,7 @@ export default function Navbar({
             href={prefix || "/"}
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
-            <Image src="/images/logo.svg" alt={cfg.name} width={36} height={36} className="md:w-10 md:h-10" />
+            <Image src={cfg.nav.logoSrc || "/images/logo.svg"} alt={cfg.name} width={36} height={36} className="md:w-10 md:h-10" />
             {/* Hide studio name on desktop — only show in mobile drawer */}
             <span className={cn(
               "font-heading text-lg md:text-2xl font-bold text-text",
@@ -83,7 +83,7 @@ export default function Navbar({
 
           {/* CTA — right */}
           <div className="hidden md:block">
-            <Button href={cfg.nav.ctaHref} variant="secondary" size="md">
+            <Button href={`${prefix}${cfg.nav.ctaHref}`} variant="secondary" size="md">
               {cfg.nav.ctaText}
             </Button>
           </div>
@@ -117,7 +117,7 @@ export default function Navbar({
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center gap-2 hover:opacity-80 transition-opacity"
               >
-                <Image src="/images/logo.svg" alt={cfg.name} width={28} height={28} />
+                <Image src={cfg.nav.logoSrc || "/images/logo.svg"} alt={cfg.name} width={28} height={28} />
                 <span className="font-heading text-lg font-bold text-text">
                   {cfg.nav.logo}
                 </span>
@@ -155,7 +155,7 @@ export default function Navbar({
 
             <div className="mt-auto">
               <Button
-                href={cfg.nav.ctaHref}
+                href={`${prefix}${cfg.nav.ctaHref}`}
                 variant="secondary"
                 className="w-full"
                 onClick={() => setMobileOpen(false)}

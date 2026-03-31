@@ -4,6 +4,7 @@ import { loadStudioConfig } from "@/lib/studio-config";
 import { generateLocalBusinessJsonLd } from "@/lib/structured-data";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { VibrantBackground } from "@/components/ui/VibrantBackground";
 
 type Props = {
   children: React.ReactNode;
@@ -48,6 +49,7 @@ export default async function StudioLayout({ children, params }: Props) {
           __html: JSON.stringify(generateLocalBusinessJsonLd(config)),
         }}
       />
+      {template === "vibrant" && <VibrantBackground />}
       <Navbar config={config} studioSlug={slug} />
       <main className="flex-1 animate-page-in">{children}</main>
       <Footer config={config} />

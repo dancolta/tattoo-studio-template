@@ -4,16 +4,14 @@ import StatsBar from "@/components/home/StatsBar";
 import PortfolioGrid from "@/components/home/PortfolioGrid";
 import Testimonials from "@/components/home/Testimonials";
 import CtaBanner from "@/components/home/CtaBanner";
-import { VibrantBackground } from "@/components/ui/VibrantBackground";
 
 /**
  * Vibrant Template — same bold layout with electric rose/crimson accent.
- * Designed for studios with colorful styles (watercolor, neo-traditional, color realism).
+ * VibrantBackground is rendered in the layout (not here) so it applies to all pages.
  */
 export default function VibrantTemplate({ config }: { config: SiteConfig }) {
   return (
     <>
-      <VibrantBackground />
       <Hero config={config} etherealColor="rgba(244, 63, 94, 0.7)" />
       <StatsBar config={config} />
       <PortfolioGrid config={config} />

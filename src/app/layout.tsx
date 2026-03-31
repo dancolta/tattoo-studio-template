@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Manrope } from "next/font/google";
+import { Syne, Manrope, Bebas_Neue, Anton } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { GlassFilter } from "@/components/ui/GlassFilter";
@@ -13,6 +13,20 @@ const syne = Syne({
 
 const manrope = Manrope({
   variable: "--font-manrope",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const anton = Anton({
+  variable: "--font-anton",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -46,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
+    <html lang="en" className={`${syne.variable} ${manrope.variable} ${bebasNeue.variable} ${anton.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
         {/* SVG filter for liquid glass buttons */}
         <GlassFilter />

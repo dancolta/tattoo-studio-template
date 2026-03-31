@@ -3,7 +3,7 @@ import type { SiteConfig } from "@/types";
 import Button from "@/components/ui/Button";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-export default function CtaBanner({ config }: { config?: SiteConfig }) {
+export default function CtaBanner({ config, basePath = "" }: { config?: SiteConfig; basePath?: string }) {
   const { ctaBanner } = config || defaultConfig;
 
   return (
@@ -17,7 +17,7 @@ export default function CtaBanner({ config }: { config?: SiteConfig }) {
             {ctaBanner.subheading}
           </p>
           <div className="mt-10 flex justify-center">
-            <Button href={ctaBanner.ctaHref} size="lg">
+            <Button href={`${basePath}${ctaBanner.ctaHref}`} size="lg">
               {ctaBanner.ctaText}
             </Button>
           </div>

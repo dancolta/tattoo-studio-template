@@ -19,9 +19,11 @@ const fadeUp: Variants = {
 export default function Hero({
   config,
   etherealColor = "rgba(128, 128, 128, 1)",
+  basePath = "",
 }: {
   config?: SiteConfig;
   etherealColor?: string;
+  basePath?: string;
 }) {
   const { hero } = config || defaultConfig;
 
@@ -68,14 +70,19 @@ export default function Hero({
       {/* Centered content */}
       <div className="relative z-10 text-center px-6">
         <motion.h1
-          className="font-bold text-5xl md:text-[8rem] lg:text-[10rem] leading-[0.85] tracking-tight text-accent"
+          className="font-black text-6xl md:text-[8rem] lg:text-[10rem] leading-[1] tracking-wide uppercase text-accent"
+          style={{ fontFamily: "var(--font-anton), system-ui, sans-serif" }}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           custom={0}
         >
           {hero.heading.split("\n").map((line, i) => (
-            <span key={i} className="block">{line}</span>
+            <span
+              key={i}
+              className="block"
+              style={hero.headingColors?.[i] ? { color: hero.headingColors[i] } : undefined}
+            >{line}</span>
           ))}
         </motion.h1>
 
@@ -96,11 +103,11 @@ export default function Hero({
           animate="visible"
           custom={0.5}
         >
-          <Button href={hero.ctaHref} size="lg">
+          <Button href={`${basePath}${hero.ctaHref}`} size="lg">
             {hero.ctaText}
           </Button>
-          <Button href="/works" variant="secondary" size="lg">
-            View Works
+          <Button href={hero.secondaryCtaHref || `${basePath}/works`} variant="secondary" size="lg">
+            {hero.secondaryCtaText || "View Works"}
           </Button>
         </motion.div>
       </div>

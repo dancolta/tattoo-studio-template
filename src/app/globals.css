@@ -20,8 +20,8 @@
 
 /* ── Vibrant Theme ────────────────────────────────── */
 .theme-vibrant {
-  --color-accent: #F43F5E;
-  --color-accent-hover: #FB7185;
+  --color-accent: rgba(244, 63, 94, 0.82);
+  --color-accent-hover: rgba(251, 113, 133, 0.85);
   --color-text: rgba(232, 232, 232, 0.85);
   --color-border: rgba(244, 63, 94, 0.12);
   --glow-dark: #4a1020;
@@ -35,7 +35,13 @@
 .theme-vibrant h2,
 .theme-vibrant h3,
 .theme-vibrant h4 {
-  color: #C73550;
+  color: rgba(199, 53, 80, 0.82);
+}
+
+/* Button fills — rose tint */
+.theme-vibrant {
+  --btn-fill-primary: rgba(244, 63, 94, 0.22);
+  --btn-fill-secondary: rgba(244, 63, 94, 0.10);
 }
 
 /* Button glass rims — rose tint */
@@ -63,7 +69,7 @@
   --color-accent: var(--color-accent);
   --color-accent-hover: var(--color-accent-hover);
   --color-border: var(--color-border);
-  --font-heading: var(--font-manrope);
+  --font-heading: var(--font-anton);
   --font-body: var(--font-manrope);
 }
 

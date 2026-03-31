@@ -33,6 +33,13 @@ Next.js template for tattoo studio outreach. Each studio gets a personalized sit
 - **Templates**: `bold` (classic/default), `vibrant` — selected via `_outreach.template` in studio.json. `minimal` and `artsy` are placeholders.
 - **All components** accept optional `config?: SiteConfig` prop, falling back to `defaultConfig` from `src/config/site.ts`.
 
+## Template theming rules
+
+- **Theme visuals (VibrantBackground, theme class) live in the LAYOUT, not in template components.** The studio layout (`(studio)/[slug]/layout.tsx`) conditionally renders `VibrantBackground` and applies `theme-vibrant` class based on `_outreach.template`. This ensures ALL pages (home, about, works, contact) get the same visual treatment.
+- **Template components (VibrantTemplate, BoldTemplate) only compose page-level sections** (Hero, StatsBar, PortfolioGrid, etc.) — they do NOT include background effects or theme wrappers.
+- **Nav links in `studio.json` must use relative paths** (`/`, `/works`, `/about`, `/contact`) — the Navbar prefixes them with `/{slug}` automatically via `studioSlug`. Never put the slug in nav link hrefs.
+- **`nav.logoSrc`** (optional) overrides the default `/images/logo.svg` in the Navbar. Set it to the studio's logo path (e.g., `/studios/jack-art-tattoo/logo.png`).
+
 ## Key Files
 
 - `src/lib/studio-config.ts` — loads studio JSON from filesystem

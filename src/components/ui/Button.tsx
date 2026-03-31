@@ -47,7 +47,7 @@ export default function Button({
       <div className="glass-btn-distortion absolute inset-0 z-0 overflow-hidden rounded-2xl group-hover:rounded-3xl transition-all duration-700" />
       <div
         className="absolute inset-0 z-10 rounded-inherit"
-        style={{ background: isSecondary ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.2)" }}
+        style={{ background: isSecondary ? "var(--btn-fill-secondary, rgba(255,255,255,0.08))" : "var(--btn-fill-primary, rgba(255,255,255,0.2))" }}
       />
       <div className={cn(
         "absolute inset-0 z-20 overflow-hidden rounded-2xl group-hover:rounded-3xl transition-all duration-700",

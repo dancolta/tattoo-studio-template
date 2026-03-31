@@ -44,13 +44,17 @@ export interface SiteConfig {
     imageSrc: string;
     videoSrc?: string;
     heading: string;
+    headingColors?: string[];
     subheading: string;
     ctaText: string;
     ctaHref: string;
+    secondaryCtaText?: string;
+    secondaryCtaHref?: string;
   };
 
   nav: {
     logo: string;
+    logoSrc?: string;
     links: NavLink[];
     ctaText: string;
     ctaHref: string;
@@ -69,6 +73,8 @@ export interface SiteConfig {
   };
 
   about: {
+    heading?: string;
+    subheading?: string;
     artistName: string;
     portraitSrc: string;
     bio: string[];

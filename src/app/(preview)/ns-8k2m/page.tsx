@@ -7,11 +7,11 @@ import CtaBanner from "@/components/home/CtaBanner";
 export default function PreviewPage() {
   return (
     <>
-      <Hero />
+      <Hero basePath="/ns-8k2m" />
       <StatsBar />
       <PortfolioGrid />
       <Testimonials />
-      <CtaBanner />
+      <CtaBanner basePath="/ns-8k2m" />
     </>
   );
 }
