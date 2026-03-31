@@ -38,7 +38,7 @@ export default function Button({
   const inner = (
     <div
       className={cn(
-        "glass-btn group relative flex items-center justify-center font-semibold uppercase tracking-[0.15em] overflow-hidden rounded-2xl hover:rounded-3xl cursor-pointer transition-all duration-700",
+        "glass-btn group relative flex items-center justify-center font-semibold uppercase tracking-[0.15em] overflow-hidden rounded-2xl hover:rounded-3xl cursor-pointer transition-all duration-700 scale-[var(--btn-scale,0.9)]",
         sizeStyles[size],
         disabled && "opacity-50 cursor-not-allowed pointer-events-none",
         className
