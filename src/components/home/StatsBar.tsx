@@ -1,11 +1,12 @@
 "use client";
 
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
-export default function StatsBar() {
-  const { stats } = siteConfig;
+export default function StatsBar({ config }: { config?: SiteConfig }) {
+  const { stats } = config || defaultConfig;
 
   return (
     <section className="-mt-16 md:-mt-24 py-12 md:py-16 relative z-10">

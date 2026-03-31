@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import Button from "@/components/ui/Button";
 import { EtheralShadow } from "@/components/ui/EtheralShadow";
 
@@ -15,8 +16,8 @@ const fadeUp: Variants = {
   }),
 };
 
-export default function Hero() {
-  const { hero } = siteConfig;
+export default function Hero({ config }: { config?: SiteConfig }) {
+  const { hero } = config || defaultConfig;
 
   return (
     <section className="relative w-full min-h-screen pb-32 flex items-center justify-center">

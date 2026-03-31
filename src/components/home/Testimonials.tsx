@@ -1,12 +1,13 @@
 "use client";
 
 import { useRef, useCallback, useEffect } from "react";
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import TestimonialCard from "@/components/home/TestimonialCard";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-export default function Testimonials() {
-  const { testimonials } = siteConfig;
+export default function Testimonials({ config }: { config?: SiteConfig }) {
+  const { testimonials } = config || defaultConfig;
   const duplicated = [...testimonials.items, ...testimonials.items];
 
   const containerRef = useRef<HTMLDivElement>(null);

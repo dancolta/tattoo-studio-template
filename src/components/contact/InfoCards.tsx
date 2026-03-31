@@ -1,8 +1,9 @@
 import { MapPin, Clock, Mail } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 
-export default function InfoCards() {
-  const { location } = siteConfig;
+export default function InfoCards({ config }: { config?: SiteConfig }) {
+  const { location } = config || defaultConfig;
 
   const cards = [
     {

@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 import FileUpload from "@/components/ui/FileUpload";
 import Button from "@/components/ui/Button";
 
-export default function ContactForm() {
-  const { contact } = siteConfig;
+export default function ContactForm({ config }: { config?: SiteConfig }) {
+  const { contact } = config || defaultConfig;
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

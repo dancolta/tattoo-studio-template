@@ -1,25 +1,27 @@
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 
-export function generateLocalBusinessJsonLd() {
+export function generateLocalBusinessJsonLd(config?: SiteConfig) {
+  const c = config || defaultConfig;
   return {
     "@context": "https://schema.org",
-    "@type": siteConfig.structured.type,
-    name: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    image: `${siteConfig.url}${siteConfig.ogImage}`,
-    telephone: siteConfig.location.phone,
-    email: siteConfig.location.email,
-    priceRange: siteConfig.structured.priceRange,
+    "@type": c.structured.type,
+    name: c.name,
+    description: c.description,
+    url: c.url,
+    image: `${c.url}${c.ogImage}`,
+    telephone: c.location.phone,
+    email: c.location.email,
+    priceRange: c.structured.priceRange,
     address: {
       "@type": "PostalAddress",
-      streetAddress: siteConfig.location.address,
+      streetAddress: c.location.address,
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: siteConfig.structured.geo.lat,
-      longitude: siteConfig.structured.geo.lng,
+      latitude: c.structured.geo.lat,
+      longitude: c.structured.geo.lng,
     },
-    sameAs: siteConfig.socials.map((s) => s.url),
+    sameAs: c.socials.map((s) => s.url),
   };
 }

@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# studio data (deployed via vercel deploy CLI, not git)
+/public/studios/*
+!/public/studios/.gitkeep
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

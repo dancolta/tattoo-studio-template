@@ -1,10 +1,11 @@
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import { ImageAutoSlider } from "@/components/ui/ImageAutoSlider";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Section from "@/components/layout/Section";
 
-export default function StudioPhotos() {
-  const photos = siteConfig.about.studioPhotos;
+export default function StudioPhotos({ config }: { config?: SiteConfig }) {
+  const photos = (config || defaultConfig).about.studioPhotos;
 
   const sliderImages = photos.map((src, i) => ({
     src,

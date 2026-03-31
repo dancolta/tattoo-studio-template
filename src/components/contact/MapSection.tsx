@@ -1,8 +1,9 @@
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-export default function MapSection() {
-  const { mapEmbedUrl } = siteConfig.location;
+export default function MapSection({ config }: { config?: SiteConfig }) {
+  const { mapEmbedUrl } = (config || defaultConfig).location;
 
   if (!mapEmbedUrl) {
     return (

@@ -6,15 +6,24 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import Button from "@/components/ui/Button";
 
-export default function Navbar() {
+export default function Navbar({
+  config,
+  studioSlug,
+}: {
+  config?: SiteConfig;
+  studioSlug?: string;
+}) {
+  const cfg = config || defaultConfig;
   const [mobileOpen, setMobileOpen] = useState(false);
   const { isAtTop } = useScrollDirection();
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isStudio = !!studioSlug;
+  const isHome = isStudio ? pathname === `/${studioSlug}` : pathname === "/";
 
   const scrolled = !(isHome && isAtTop);
 
@@ -34,15 +43,15 @@ export default function Navbar() {
             href="/"
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
-            <Image src="/images/logo.svg" alt={siteConfig.name} width={36} height={36} className="md:w-10 md:h-10" />
+            <Image src="/images/logo.svg" alt={cfg.name} width={36} height={36} className="md:w-10 md:h-10" />
             <span className="font-heading text-lg md:text-2xl font-bold text-text">
-              {siteConfig.nav.logo}
+              {cfg.nav.logo}
             </span>
           </Link>
 
           {/* Desktop Nav — centered */}
           <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-            {siteConfig.nav.links.map((link) => (
+            {cfg.nav.links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -60,8 +69,8 @@ export default function Navbar() {
 
           {/* CTA — right */}
           <div className="hidden md:block">
-            <Button href={siteConfig.nav.ctaHref} variant="secondary" size="md">
-              {siteConfig.nav.ctaText}
+            <Button href={cfg.nav.ctaHref} variant="secondary" size="md">
+              {cfg.nav.ctaText}
             </Button>
           </div>
 
@@ -94,9 +103,9 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center gap-2 hover:opacity-80 transition-opacity"
               >
-                <Image src="/images/logo.svg" alt={siteConfig.name} width={28} height={28} />
+                <Image src="/images/logo.svg" alt={cfg.name} width={28} height={28} />
                 <span className="font-heading text-lg font-bold text-text">
-                  {siteConfig.nav.logo}
+                  {cfg.nav.logo}
                 </span>
               </Link>
               <button
@@ -110,7 +119,7 @@ export default function Navbar() {
             </div>
 
             <div className="flex flex-col gap-5">
-              {siteConfig.nav.links.map((link) => (
+              {cfg.nav.links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -129,12 +138,12 @@ export default function Navbar() {
 
             <div className="mt-auto">
               <Button
-                href={siteConfig.nav.ctaHref}
+                href={cfg.nav.ctaHref}
                 variant="secondary"
                 className="w-full"
                 onClick={() => setMobileOpen(false)}
               >
-                {siteConfig.nav.ctaText}
+                {cfg.nav.ctaText}
               </Button>
             </div>
           </div>

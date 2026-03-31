@@ -1,9 +1,10 @@
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import { ImageAutoSlider } from "@/components/ui/ImageAutoSlider";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-export default function PortfolioGrid() {
-  const { portfolio } = siteConfig;
+export default function PortfolioGrid({ config }: { config?: SiteConfig }) {
+  const { portfolio } = config || defaultConfig;
 
   const sliderImages = portfolio.items.map((item) => ({
     src: item.src,

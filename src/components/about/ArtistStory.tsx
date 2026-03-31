@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Section from "@/components/layout/Section";
 
-export default function ArtistStory() {
-  const { about } = siteConfig;
+export default function ArtistStory({ config }: { config?: SiteConfig }) {
+  const { about } = config || defaultConfig;
 
   return (
     <Section>

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Manrope } from "next/font/google";
 import { siteConfig } from "@/config/site";
-import { generateLocalBusinessJsonLd } from "@/lib/structured-data";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import { PageBackground } from "@/components/ui/PageBackground";
 import { GlassFilter } from "@/components/ui/GlassFilter";
 import "./globals.css";
@@ -51,22 +48,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(generateLocalBusinessJsonLd()),
-          }}
-        />
-
         {/* SVG filter for liquid glass buttons */}
         <GlassFilter />
 
         {/* Etheral shadow background — fixed behind all content */}
         <PageBackground />
 
-        <Navbar />
-        <main className="flex-1 animate-page-in">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

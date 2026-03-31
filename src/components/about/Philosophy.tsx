@@ -1,5 +1,6 @@
 import { Paintbrush, ShieldCheck, Heart, Sparkles, Gem, Zap } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import Section from "@/components/layout/Section";
@@ -13,8 +14,9 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Zap,
 };
 
-export default function Philosophy() {
-  const { philosophy } = siteConfig.about;
+export default function Philosophy({ config }: { config?: SiteConfig }) {
+  const cfg = config || defaultConfig;
+  const { philosophy } = cfg.about;
 
   return (
     <Section>
@@ -25,7 +27,7 @@ export default function Philosophy() {
             &ldquo;{philosophy.quote}&rdquo;
           </blockquote>
           <p className="text-text-muted mt-6 text-sm uppercase tracking-widest">
-            — {siteConfig.about.artistName}
+            — {cfg.about.artistName}
           </p>
           <div className="w-12 h-px bg-accent/30 mx-auto mt-8" />
         </div>

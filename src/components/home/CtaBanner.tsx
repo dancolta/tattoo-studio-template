@@ -1,9 +1,10 @@
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import Button from "@/components/ui/Button";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-export default function CtaBanner() {
-  const { ctaBanner } = siteConfig;
+export default function CtaBanner({ config }: { config?: SiteConfig }) {
+  const { ctaBanner } = config || defaultConfig;
 
   return (
     <section className="pt-10 pb-24 md:pt-28 md:pb-44">

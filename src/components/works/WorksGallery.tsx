@@ -2,12 +2,13 @@
 
 import { useState, useCallback } from "react";
 import Image from "next/image";
-import { siteConfig } from "@/config/site";
+import { siteConfig as defaultConfig } from "@/config/site";
+import type { SiteConfig } from "@/types";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { Lightbox } from "@/components/ui/Lightbox";
 
-export default function WorksGallery() {
-  const { portfolio } = siteConfig;
+export default function WorksGallery({ config }: { config?: SiteConfig }) {
+  const { portfolio } = config || defaultConfig;
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightbox, setLightbox] = useState<string | null>(null);
   const closeLightbox = useCallback(() => setLightbox(null), []);
