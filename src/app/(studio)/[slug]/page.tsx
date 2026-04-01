@@ -13,10 +13,10 @@ import MinimalTemplate from "@/components/templates/MinimalTemplate";
 import ArtsyTemplate from "@/components/templates/ArtsyTemplate";
 import VibrantTemplate from "@/components/templates/VibrantTemplate";
 
-function BoldTemplate({ config }: { config: SiteConfig }) {
+function BoldTemplate({ config, basePath }: { config: SiteConfig; basePath: string }) {
   return (
     <>
-      <Hero config={config} />
+      <Hero config={config} basePath={basePath} />
       <StatsBar config={config} />
       <PortfolioGrid config={config} />
       {config.testimonials.items.length > 0 && (
@@ -41,14 +41,16 @@ export default async function StudioPage({ params }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const template = (config as any)._outreach?.template || "bold";
 
+  const basePath = `/${slug}`;
+
   switch (template) {
     case "vibrant":
-      return <VibrantTemplate config={config} />;
+      return <VibrantTemplate config={config} basePath={basePath} />;
     case "minimal":
       return <MinimalTemplate config={config} />;
     case "artsy":
       return <ArtsyTemplate config={config} />;
     default:
-      return <BoldTemplate config={config} />;
+      return <BoldTemplate config={config} basePath={basePath} />;
   }
 }

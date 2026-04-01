@@ -9,10 +9,10 @@ import CtaBanner from "@/components/home/CtaBanner";
  * Vibrant Template — same bold layout with electric rose/crimson accent.
  * VibrantBackground is rendered in the layout (not here) so it applies to all pages.
  */
-export default function VibrantTemplate({ config }: { config: SiteConfig }) {
+export default function VibrantTemplate({ config, basePath = "" }: { config: SiteConfig; basePath?: string }) {
   return (
     <>
-      <Hero config={config} etherealColor="rgba(244, 63, 94, 0.7)" />
+      <Hero config={config} etherealColor="rgba(244, 63, 94, 0.7)" basePath={basePath} />
       <StatsBar config={config} />
       <PortfolioGrid config={config} />
       {config.testimonials.items.length > 0 && (

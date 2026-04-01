@@ -91,7 +91,7 @@ After scraping, **always enrich** the generated `studio.json` with data from the
 
 - **Vercel project**: `tattoo-studio-template` on `dancoltas-projects`
 - **Domain**: `tattoo-studio.nodesparks.com`
-- **Deploy command**: `vercel deploy --prod` (must use CLI to include gitignored studio data)
+- **Deploy command**: `vercel deploy --prod --force` (must use --force to bust file cache for gitignored studio data)
 - **GitHub**: `dancolta/tattoo-studio-template` (template code only, no studio data)
 
 ## Rules

@@ -58,7 +58,7 @@ export default function Button({
   );
 
   if (href) {
-    return <Link href={href} className="inline-block">{inner}</Link>;
+    return <Link href={href} className="inline-block" onClick={onClick}>{inner}</Link>;
   }
 
   return (
