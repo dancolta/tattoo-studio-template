@@ -1,0 +1,7 @@
+# Vercel ignores .gitignore when .vercelignore exists
+# Studio data MUST be uploaded (gitignored but needed for deploy)
+node_modules
+.next
+.vercel
+.DS_Store
+.env*
