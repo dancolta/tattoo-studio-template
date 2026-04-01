@@ -42,7 +42,26 @@ export default async function StudioLayout({ children, params }: Props) {
   const themeClass = template === "vibrant" ? "theme-vibrant" : "";
 
   return (
-    <div className={themeClass}>
+    <div
+      className={themeClass}
+      style={config.colors ? {
+        ...(config.colors.accent && { '--color-accent': config.colors.accent }),
+        ...(config.colors.accentHover && { '--color-accent-hover': config.colors.accentHover }),
+        ...(config.colors.heading && { '--color-heading': config.colors.heading }),
+        ...(config.colors.border && { '--color-border': config.colors.border }),
+        ...(config.colors.btnPrimary && { '--btn-primary-override': config.colors.btnPrimary }),
+        ...(config.colors.btnSecondary && { '--btn-secondary-override': config.colors.btnSecondary }),
+        ...(config.colors.rimPrimary && { '--rim-primary-override': config.colors.rimPrimary }),
+        ...(config.colors.rimPrimaryAlt && { '--rim-primary-alt-override': config.colors.rimPrimaryAlt }),
+        ...(config.colors.rimSecondary && { '--rim-secondary-override': config.colors.rimSecondary }),
+        ...(config.colors.rimSecondaryAlt && { '--rim-secondary-alt-override': config.colors.rimSecondaryAlt }),
+        ...(config.colors.glowDark && { '--glow-dark-override': config.colors.glowDark }),
+        ...(config.colors.glowMid && { '--glow-mid-override': config.colors.glowMid }),
+        ...(config.colors.glowLight && { '--glow-light-override': config.colors.glowLight }),
+        ...(config.colors.glowBright && { '--glow-bright-override': config.colors.glowBright }),
+        ...(config.colors.spotlight && { '--spotlight-override': config.colors.spotlight }),
+      } as React.CSSProperties : undefined}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

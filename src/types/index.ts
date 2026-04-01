@@ -115,6 +115,24 @@ export interface SiteConfig {
     ctaHref: string;
   };
 
+  colors?: {
+    accent?: string;
+    accentHover?: string;
+    heading?: string;
+    border?: string;
+    btnPrimary?: string;
+    btnSecondary?: string;
+    rimPrimary?: string;
+    rimPrimaryAlt?: string;
+    rimSecondary?: string;
+    rimSecondaryAlt?: string;
+    glowDark?: string;
+    glowMid?: string;
+    glowLight?: string;
+    glowBright?: string;
+    spotlight?: string;
+  };
+
   structured: {
     type: string;
     priceRange: string;

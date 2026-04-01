@@ -93,6 +93,8 @@ After scraping, **always enrich** the generated `studio.json` with data from the
 - **Domain**: `tattoo-studio.nodesparks.com`
 - **Deploy command**: `vercel deploy --prod --force` (must use --force to bust file cache for gitignored studio data)
 - **GitHub**: `dancolta/tattoo-studio-template` (template code only, no studio data)
+- **CRITICAL**: Git-triggered deployments MUST be disabled (Vercel Dashboard → Settings → Git → Ignored Build Step = `exit 0`). Git deployments don't include studio data (gitignored), so they cause 404s on all studio pages. Only deploy via CLI.
+- **NEVER `git push` and then assume the site is deployed** — the CLI deploy is the only source of truth. After pushing code, always run `vercel deploy --prod --force` to deploy with studio data included.
 
 ## Rules
 

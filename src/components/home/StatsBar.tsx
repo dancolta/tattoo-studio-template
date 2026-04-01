@@ -9,7 +9,7 @@ export default function StatsBar({ config }: { config?: SiteConfig }) {
   const { stats } = config || defaultConfig;
 
   return (
-    <section className="-mt-16 md:-mt-24 py-12 md:py-16 relative z-10">
+    <section className="-mt-32 md:-mt-24 py-12 md:py-16 relative z-10">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
