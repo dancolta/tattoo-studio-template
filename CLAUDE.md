@@ -39,6 +39,12 @@ Next.js template for tattoo studio outreach. Each studio gets a personalized sit
 - **Template components (VibrantTemplate, BoldTemplate) only compose page-level sections** (Hero, StatsBar, PortfolioGrid, etc.) — they do NOT include background effects or theme wrappers.
 - **Nav links in `studio.json` must use relative paths** (`/`, `/works`, `/about`, `/contact`) — the Navbar prefixes them with `/{slug}` automatically via `studioSlug`. Never put the slug in nav link hrefs.
 - **`nav.logoSrc`** (optional) overrides the default `/images/logo.svg` in the Navbar. Set it to the studio's logo path (e.g., `/studios/jack-art-tattoo/logo.png`).
+- **Navbar logo is always text, never an image.** The Navbar renders the studio name from `hero.heading` in Anton font, split by lines and colored using `hero.headingColors` (so vibrant studios get the two-tone look, bold studios get plain white). No `logoSrc` or image logos — text only.
+
+## Per-studio colors
+
+- **`colors`** (optional) in `studio.json` overrides CSS custom properties for that studio only. Fields: `accent`, `accentHover`, `border`. Applied as inline CSS variables on the studio layout wrapper — everything downstream (buttons, headings, glow cards, borders) inherits automatically.
+- No new template needed — just add the `colors` object to any studio's JSON.
 
 ## Key Files
 
@@ -46,6 +52,40 @@ Next.js template for tattoo studio outreach. Each studio gets a personalized sit
 - `src/app/(studio)/[slug]/page.tsx` — template switcher
 - `src/config/site.ts` — default template config (Ink & Iron)
 - `public/studios/[slug]/` — per-studio assets (gitignored)
+
+## Instagram Scraper (MANDATORY for new leads)
+
+**ALWAYS use the Instagram scraper** at `/Users/dancolta/Work/NodeSparks/Projects/instagram-scraper` to generate studio data. Never use placeholder/Unsplash images — all portfolio images and avatar must come from the lead's actual Instagram profile.
+
+### Usage
+
+```bash
+cd /Users/dancolta/Work/NodeSparks/Projects/instagram-scraper
+node --env-file=.env src/outreach.js <instagram-url-or-username> [template] [lang]
+```
+
+- **Templates**: `bold` (default/classic), `vibrant` (artistic/colorful)
+- **Languages**: `ro` (Romanian, default), `en` (English)
+- **Output**: `data/studios/<slug>/` — studio.json + avatar.jpg + portfolio/*.jpg + current-site.png
+- **Auto-copies** scraped data to `tattoo-studio-template/public/studios/<slug>/` ready for deploy
+
+### Template selection guide
+
+- `vibrant` — studios with artistic/colorful branding, gallery spaces, multiple artists, expressive styles (watercolor, neo-traditional, color realism)
+- `bold` — solo artists, dark/classic aesthetic, blackwork, realism, traditional, minimal branding
+
+### Post-scrape enrichment
+
+After scraping, **always enrich** the generated `studio.json` with data from the lead's existing website (if they have one): full address, phone, email, working hours, artist bios, services, pricing, testimonials, geo coordinates, social links. The scraper outputs a skeleton — the website data fills in the gaps.
+
+### Pipeline (per lead)
+
+1. Run scraper → outputs `studio.json` + images to `public/studios/<slug>/`
+2. Enrich `studio.json` with website data (if available)
+3. Set template via `_outreach.template` (`bold` or `vibrant`)
+4. Set custom `colors` if studio has distinct branding
+5. Deploy: `vercel deploy --prod` from tattoo-studio-template dir
+6. Live URL: `tattoo-studio.nodesparks.com/<slug>`
 
 ## Deployment
 

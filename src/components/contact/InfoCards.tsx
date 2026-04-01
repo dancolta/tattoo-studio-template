@@ -31,7 +31,7 @@ export default function InfoCards({ config }: { config?: SiteConfig }) {
       {cards.map((card, i) => (
         <div
           key={i}
-          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5 will-change-transform"
         >
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">

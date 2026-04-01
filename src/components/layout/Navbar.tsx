@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -10,6 +9,21 @@ import { siteConfig as defaultConfig } from "@/config/site";
 import type { SiteConfig } from "@/types";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import Button from "@/components/ui/Button";
+
+function NavLogo({ config }: { config: SiteConfig }) {
+  const lines = config.hero.heading.split("\n");
+  const colors = config.hero.headingColors;
+
+  return (
+    <span className="font-heading text-lg md:text-2xl font-bold uppercase tracking-wide">
+      {lines.map((line, i) => (
+        <span key={i} style={colors?.[i] ? { color: colors[i] } : undefined}>
+          {line}{i < lines.length - 1 ? " " : ""}
+        </span>
+      ))}
+    </span>
+  );
+}
 
 export default function Navbar({
   config,
@@ -40,7 +54,7 @@ export default function Navbar({
         {/* Glass layer — always mounted, only opacity animates (no backdrop-filter toggle = no jank) */}
         <div
           className={cn(
-            "absolute inset-0 bg-surface/30 backdrop-blur-xl shadow-lg shadow-black/20 transition-opacity duration-500 ease-out",
+            "absolute inset-0 bg-surface/30 backdrop-blur-xl shadow-lg shadow-black/20 transition-opacity duration-500 ease-out will-change-transform",
             scrolled ? "opacity-100" : "opacity-0 pointer-events-none"
           )}
         />
@@ -48,16 +62,9 @@ export default function Navbar({
           {/* Logo */}
           <Link
             href={prefix || "/"}
-            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
+            className="flex items-center hover:opacity-80 transition-opacity"
           >
-            <Image src={cfg.nav.logoSrc || "/images/logo.svg"} alt={cfg.name} width={36} height={36} className="md:w-10 md:h-10" />
-            {/* Hide studio name on desktop — only show in mobile drawer */}
-            <span className={cn(
-              "font-heading text-lg md:text-2xl font-bold text-text",
-              isStudio && "md:hidden"
-            )}>
-              {cfg.nav.logo}
-            </span>
+            <NavLogo config={cfg} />
           </Link>
 
           {/* Desktop Nav — centered */}
@@ -113,14 +120,11 @@ export default function Navbar({
           <div className="absolute right-0 top-0 bottom-0 w-72 bg-surface/30 backdrop-blur-2xl border-l border-white/[0.08] p-6 flex flex-col animate-slide-in">
             <div className="flex items-center justify-between mb-8">
               <Link
-                href="/"
+                href={prefix || "/"}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                className="flex items-center hover:opacity-80 transition-opacity"
               >
-                <Image src={cfg.nav.logoSrc || "/images/logo.svg"} alt={cfg.name} width={28} height={28} />
-                <span className="font-heading text-lg font-bold text-text">
-                  {cfg.nav.logo}
-                </span>
+                <NavLogo config={cfg} />
               </Link>
               <button
                 type="button"

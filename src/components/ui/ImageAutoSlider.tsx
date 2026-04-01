@@ -43,16 +43,18 @@ export function ImageAutoSlider({
     if (!container) return;
 
     const pxPerFrame = (reverse ? -1 : 1) * (60 / speed) * 0.5;
+    // Cache scrollWidth and track position in JS to avoid layout thrash
+    // (eliminates read-write-read pattern — single DOM write per frame)
+    let cachedHalf = container.scrollWidth / 2;
+    let pos = reverse ? cachedHalf : 0;
+    container.scrollLeft = pos;
 
     const tick = () => {
       if (!isPaused.current && container) {
-        container.scrollLeft += pxPerFrame;
-        const half = container.scrollWidth / 2;
-        if (!reverse && container.scrollLeft >= half) {
-          container.scrollLeft -= half;
-        } else if (reverse && container.scrollLeft <= 0) {
-          container.scrollLeft += half;
-        }
+        pos += pxPerFrame;
+        if (!reverse && pos >= cachedHalf) pos -= cachedHalf;
+        else if (reverse && pos <= 0) pos += cachedHalf;
+        container.scrollLeft = pos;
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -82,7 +84,7 @@ export function ImageAutoSlider({
     );
     visObs.observe(container);
 
-    if (reverse) container.scrollLeft = container.scrollWidth / 2;
+    // Initial scroll position already set above via pos variable
 
     return () => {
       stopLoop();
@@ -152,7 +154,7 @@ export function ImageAutoSlider({
                 alt={image.alt}
                 fill
                 sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 320px"
-                className="object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-110 pointer-events-none"
+                className="object-cover transition-[transform,filter] duration-300 group-hover:scale-105 group-hover:brightness-110 pointer-events-none"
                 draggable={false}
               />
             </div>

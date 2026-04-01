@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, type CSSProperties, type ReactNode } from "react";
+import React, { useId, useState, useEffect, type CSSProperties, type ReactNode } from "react";
 
 interface AnimationConfig {
   scale: number;
@@ -45,7 +45,21 @@ export function EtheralShadow({
 }: EtheralShadowProps) {
   const rawId = useId();
   const id = `etheral-${rawId.replace(/:/g, "")}`;
-  const animationEnabled = animation && animation.scale > 0;
+  const hasAnimation = animation && animation.scale > 0;
+
+  // Detect mobile to freeze (not remove) SMIL animation — visual stays, CPU saved
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  // On mobile: render the SVG filter (so the visual is present) but skip the <animate> element
+  const animationEnabled = hasAnimation;
+  const smilActive = hasAnimation && !isMobile;
 
   const displacementScale = React.useMemo(
     () => animation ? mapRange(animation.scale, 1, 100, 20, 100) : 0,
@@ -91,13 +105,15 @@ export function EtheralShadow({
                   type="hueRotate"
                   values="0"
                 >
-                  <animate
-                    attributeName="values"
-                    from="0"
-                    to="360"
-                    dur={`${smilDuration}s`}
-                    repeatCount="indefinite"
-                  />
+                  {smilActive && (
+                    <animate
+                      attributeName="values"
+                      from="0"
+                      to="360"
+                      dur={`${smilDuration}s`}
+                      repeatCount="indefinite"
+                    />
+                  )}
                 </feColorMatrix>
                 <feColorMatrix
                   in="dist"

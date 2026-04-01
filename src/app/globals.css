@@ -24,35 +24,36 @@
   --color-accent-hover: rgba(251, 113, 133, 0.85);
   --color-text: rgba(232, 232, 232, 0.85);
   --color-border: rgba(244, 63, 94, 0.12);
-  --glow-dark: #4a1020;
-  --glow-mid: #7a1830;
-  --glow-light: #F43F5E;
-  --glow-bright: #FB7185;
-  --spotlight-color: hsl(347 90% 60% / 0.2);
+  --color-heading: var(--color-accent);
+  --glow-dark: var(--glow-dark-override, #4a1020);
+  --glow-mid: var(--glow-mid-override, #7a1830);
+  --glow-light: var(--glow-light-override, #F43F5E);
+  --glow-bright: var(--glow-bright-override, #FB7185);
+  --spotlight-color: var(--spotlight-override, hsl(347 90% 60% / 0.2));
+  --btn-fill-primary: var(--btn-primary-override, rgba(244, 63, 94, 0.22));
+  --btn-fill-secondary: var(--btn-secondary-override, rgba(244, 63, 94, 0.10));
+  --rim-primary: var(--rim-primary-override, rgba(244, 63, 94, 0.5));
+  --rim-primary-alt: var(--rim-primary-alt-override, rgba(244, 63, 94, 0.4));
+  --rim-secondary: var(--rim-secondary-override, rgba(244, 63, 94, 0.25));
+  --rim-secondary-alt: var(--rim-secondary-alt-override, rgba(244, 63, 94, 0.2));
 }
 
 .theme-vibrant h1,
 .theme-vibrant h2,
 .theme-vibrant h3,
 .theme-vibrant h4 {
-  color: rgba(199, 53, 80, 0.82);
+  color: var(--color-heading);
 }
 
-/* Button fills — rose tint */
-.theme-vibrant {
-  --btn-fill-primary: rgba(244, 63, 94, 0.22);
-  --btn-fill-secondary: rgba(244, 63, 94, 0.10);
-}
-
-/* Button glass rims — rose tint */
+/* Button glass rims */
 .theme-vibrant .glass-btn-rim-primary {
-  box-shadow: inset 2px 2px 1px 0 rgba(244, 63, 94, 0.5),
-    inset -1px -1px 1px 1px rgba(244, 63, 94, 0.4);
+  box-shadow: inset 2px 2px 1px 0 var(--rim-primary),
+    inset -1px -1px 1px 1px var(--rim-primary-alt);
 }
 
 .theme-vibrant .glass-btn-rim-secondary {
-  box-shadow: inset 1px 1px 1px 0 rgba(244, 63, 94, 0.25),
-    inset -1px -1px 1px 1px rgba(244, 63, 94, 0.2);
+  box-shadow: inset 1px 1px 1px 0 var(--rim-secondary),
+    inset -1px -1px 1px 1px var(--rim-secondary-alt);
 }
 
 /* Navbar active link + hover */
@@ -129,6 +130,13 @@ h4 {
   filter: url(#glass-distortion);
   isolation: isolate;
   transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 2.2);
+}
+
+/* Skip heavy SVG filter chain on mobile — keep backdrop-blur only */
+@media (max-width: 768px) {
+  .glass-btn-distortion {
+    filter: none;
+  }
 }
 
 .glass-btn-rim-primary {
@@ -259,6 +267,13 @@ select option {
   );
   z-index: -1;
   animation: glow-rotate 6s linear infinite;
+  animation-play-state: paused;
+}
+
+/* Only animate glow when card is in viewport (set by IntersectionObserver) */
+.glow-card.glow-visible::before,
+.glow-card.glow-visible::after {
+  animation-play-state: running;
 }
 
 .glow-card::after {
@@ -340,6 +355,19 @@ select option {
   mask-composite: exclude;
   padding: 1px;
   z-index: 2;
+}
+
+/* Disable glow-card animation on mobile — static border, no CPU cost */
+@media (max-width: 768px) {
+  .glow-card::before,
+  .glow-card::after {
+    animation: none;
+    background: var(--glow-mid);
+  }
+  .glow-card::after {
+    filter: none;
+    opacity: 0.15;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

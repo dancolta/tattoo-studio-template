@@ -38,7 +38,7 @@ export default function Philosophy({ config }: { config?: SiteConfig }) {
           const Icon = iconMap[value.icon] || Sparkles;
           return (
             <ScrollReveal key={i} delay={i * 100}>
-              <SpotlightCard className="backdrop-blur-xl">
+              <SpotlightCard className="backdrop-blur-xl will-change-transform">
                 <div className="relative z-10 p-5 md:p-8 text-center">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
                     <Icon className="w-5 h-5 md:w-6 md:h-6 text-accent" />

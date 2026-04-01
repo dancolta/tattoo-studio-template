@@ -23,15 +23,15 @@ export default function Testimonials({ config }: { config?: SiteConfig }) {
     if (!container) return;
 
     const pxPerFrame = 0.4;
+    // Cache scrollWidth and track position in JS to avoid layout thrash
+    let cachedHalf = container.scrollWidth / 2;
+    let pos = 0;
 
     const tick = () => {
       if (!isPaused.current && container) {
-        container.scrollLeft += pxPerFrame;
-
-        const half = container.scrollWidth / 2;
-        if (container.scrollLeft >= half) {
-          container.scrollLeft -= half;
-        }
+        pos += pxPerFrame;
+        if (pos >= cachedHalf) pos -= cachedHalf;
+        container.scrollLeft = pos;
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -91,7 +91,7 @@ export default function Testimonials({ config }: { config?: SiteConfig }) {
   }, []);
 
   return (
-    <section id="testimonials" className="py-12 md:py-32 overflow-hidden">
+    <section id="testimonials" className="py-12 md:py-32 overflow-hidden" style={{ contain: "layout style" }}>
       <div className="max-w-7xl mx-auto px-6 mb-8 md:mb-12 text-center">
         <ScrollReveal>
           <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
