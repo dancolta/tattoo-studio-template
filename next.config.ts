@@ -1,27 +1,16 @@
 import type { NextConfig } from "next";
 
+// Static export for GitHub Pages. BASE_PATH is set by the Pages workflow (e.g. "/tattoo-studio-template").
 const nextConfig: NextConfig = {
+  output: "export",
+  basePath: process.env.BASE_PATH || "",
+  env: {
+    NEXT_PUBLIC_BASE_PATH: process.env.BASE_PATH || "",
+  },
+  trailingSlash: true,
   images: {
-    formats: ["image/avif", "image/webp"],
-    deviceSizes: [375, 640, 768, 1024, 1280, 1440, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-      {
-        protocol: "https",
-        hostname: "*.cdninstagram.com",
-      },
-      {
-        protocol: "https",
-        hostname: "scontent*.cdninstagram.com",
-      },
-    ],
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
   },
 };
 
